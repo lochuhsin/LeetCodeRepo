@@ -51,4 +51,45 @@ class Solution:
                     max_p2_height = p2_height
                     
         return volumn
+
+
+'''
+Left walk once, Right walk once.
+calculate the overlap region with minimum.
+
+Btw: much more straight forward, but less clean.
+Remember to eleminate the first element of each list.
+
+'''
+
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        p1_list = []
+        p1_max_height = height[0]
+        for i in range(1, len(height)):
+            if (current_height := height[i]) < p1_max_height:
+                p1_list.append(p1_max_height - current_height)
+            else:
+                p1_max_height = current_height
+                p1_list.append(0)
+                
+        p2_list = []
+        p2_max_height = height[len(height)-1]
+        for i in range(len(height)-2, -1, -1):
+            if (current_height := height[i]) < p2_max_height:
+                p2_list.append(p2_max_height - current_height)
+            else:
+                p2_max_height = current_height
+                p2_list.append(0)
+        
+        p1_list = p1_list[:-1]
+        p2_list = p2_list[:-1][::-1]
+        
+        volumn = 0
+        for p1_v, p2_v in zip(p1_list, p2_list):
+            if p1_v != 0 and p2_v != 0:
+                volumn += min(p1_v, p2_v)
+                
+        return volumn
         
