@@ -32,7 +32,6 @@ class Solution:
     def trap(self, height: List[int]) -> int:
         p1 , p2 = 0 ,len(height) -1
         max_p1_height, max_p2_height = height[p1], height[p2]
-        
         volumn = 0
         
         while p1 != p2:
