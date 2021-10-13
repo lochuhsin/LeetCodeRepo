@@ -12,6 +12,7 @@ However if the input interval is sorted by the start element, the condition will
 check the end value and start value to see if it is overlap.
 '''
 
+
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         intervals = sorted(intervals, key= lambda x: x[0])

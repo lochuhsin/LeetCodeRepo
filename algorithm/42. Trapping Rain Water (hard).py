@@ -30,26 +30,26 @@ Now Turns to p2.
 
 class Solution:
     def trap(self, height: List[int]) -> int:
-        p1 , p2 = 0 ,len(height) -1
+        p1, p2 = 0, len(height) - 1
         max_p1_height, max_p2_height = height[p1], height[p2]
         volumn = 0
-        
         while p1 != p2:
-            
+
             if height[p1] < max_p2_height:
+
                 p1 += 1
                 if (p1_height := height[p1]) < max_p1_height:
                     volumn += max_p1_height - p1_height
                 else:
                     max_p1_height = p1_height
-                    
+
             else:
                 p2 -= 1
                 if(p2_height := height[p2]) < max_p2_height:
                     volumn += max_p2_height - p2_height
                 else:
                     max_p2_height = p2_height
-                    
+
         return volumn
 
 
@@ -73,7 +73,7 @@ class Solution:
             else:
                 p1_max_height = current_height
                 p1_list.append(0)
-                
+
         p2_list = []
         p2_max_height = height[len(height)-1]
         for i in range(len(height)-2, -1, -1):
@@ -82,14 +82,13 @@ class Solution:
             else:
                 p2_max_height = current_height
                 p2_list.append(0)
-        
+
         p1_list = p1_list[:-1]
         p2_list = p2_list[:-1][::-1]
-        
+
         volumn = 0
         for p1_v, p2_v in zip(p1_list, p2_list):
             if p1_v != 0 and p2_v != 0:
                 volumn += min(p1_v, p2_v)
-                
+
         return volumn
-        
