@@ -39,4 +39,14 @@ class Solution:
             elif (profit := i - buy_value) > max_profit:
                 max_profit = profit
 
+            # small alternative clean code but less straight foward
+            '''
+            else:
+            max_profit = max(i-buy_value, max_profit)
+            '''
+
         return max_profit if max_profit > 0 else 0
+
+
+
+
