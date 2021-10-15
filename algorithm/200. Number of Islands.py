@@ -36,7 +36,7 @@ class Solution:
 
 
 '''
-Leetcode solution (dfs)
+Leetcode solution (dfs , dfs) 
 '''
 
 
@@ -61,3 +61,8 @@ class Solution:
         self.dfs(grid, i-1, j)
         self.dfs(grid, i, j+1)
         self.dfs(grid, i, j-1)
+
+'''
+Missing Union Find solution
+'''
+
