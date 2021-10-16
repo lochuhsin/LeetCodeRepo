@@ -21,9 +21,27 @@ class Solution:
         for i in range(1, len(intervals)):
             if intervals[i][0] <= hold[1]:
                 hold = [hold[0], max(hold[1], intervals[i][1])]
-                
+
             else:
                 merge.append(list(hold))
                 hold = intervals[i]
         merge.append(hold)
         return merge
+
+
+'''
+Same thought, but cleaner solution
+'''
+
+
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        sort_list = sorted(intervals, key=lambda x: x[0])
+        container = []
+        for rang in sort_list:
+            if not container or container[-1][1] < rang[0]:
+                container.append(rang)
+            else:
+                container[-1][1] = max(container[-1][1], rang[1])
+            
+        return container
