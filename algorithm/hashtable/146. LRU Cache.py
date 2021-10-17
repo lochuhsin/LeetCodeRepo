@@ -5,7 +5,6 @@ using order is fine
 '''
 
 
-
 class LRUCache(OrderedDict):
 
     def __init__(self, capacity):
@@ -62,6 +61,11 @@ class LRUCache(OrderedDict):
 
         self[key] = value
         self.move_to_end(key)
+
+
+"""
+With doubly linked list solution
+"""
 
 
 class DLinkedNode():
