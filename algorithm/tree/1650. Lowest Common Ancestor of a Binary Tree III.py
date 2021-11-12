@@ -23,6 +23,8 @@ q -> q1 -> c1 -> c2 -> c3 -> root -> p -> p1  -> p2 -> p3 -> [c1] -> c2 -> c3 ->
 
 since the path must be the same, the algorithm with while loop will 
 "garentee" stops at c1  
+
+ps: convert a tree problem to two pointer linked list problem.
 '''
 
 
