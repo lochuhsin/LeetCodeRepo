@@ -35,10 +35,10 @@ class Solution:
                 
                 if node.left:
                     new_child_list.append(node.left)
-                    
+
                 if node.right:
                     new_child_list.append(node.right)
-            
+
             if flag == 0:
                 level_val.append(val)
                 flag = 1
