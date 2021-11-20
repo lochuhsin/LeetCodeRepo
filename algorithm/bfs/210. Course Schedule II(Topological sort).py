@@ -64,46 +64,31 @@ class Solution:
         return topological_sorted_order[::-1] if is_possible else []
 
 
-from collections import deque
-
-
+'''
+For detail, see 207
+'''
 class Solution:
-
     def findOrder(self, numCourses, prerequisites):
-        """
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: List[int]
-        """
+        order = []
 
-        # Prepare the graph
-        adj_list = defaultdict(list)
-        indegree = {}
-        for dest, src in prerequisites:
-            adj_list[src].append(dest)
+        graph_dic = defaultdict(list)
+        indegree = [0 for i in range(numCourses)]
 
-            # Record each node's in-degree
-            indegree[dest] = indegree.get(dest, 0) + 1
+        edgs_count = 0  # edges count
+        for course, precourse in prerequisites:
+            graph_dic[precourse].append(course)
+            indegree[course] += 1
+            edgs_count += 1
 
-        # Queue for maintainig list of nodes that have 0 in-degree
-        zero_indegree_queue = deque([k for k in range(numCourses) if k not in indegree])
+        q = deque([i for i in range(len(indegree)) if indegree[i] == 0])
 
-        topological_sorted_order = []
+        while q:
+            node = q.pop()
+            order.append(node)
+            for new_node in graph_dic[node]:
+                indegree[new_node] -= 1
+                edgs_count -= 1
 
-        # Until there are nodes in the Q
-        while zero_indegree_queue:
-
-            # Pop one node with 0 in-degree
-            vertex = zero_indegree_queue.popleft()
-            topological_sorted_order.append(vertex)
-
-            # Reduce in-degree for all the neighbors
-            if vertex in adj_list:
-                for neighbor in adj_list[vertex]:
-                    indegree[neighbor] -= 1
-
-                    # Add neighbor to Q if in-degree becomes 0
-                    if indegree[neighbor] == 0:
-                        zero_indegree_queue.append(neighbor)
-
-        return topological_sorted_order if len(topological_sorted_order) == numCourses else []
+                if indegree[new_node] == 0:
+                    q.append(new_node)
+        return order if edgs_count == 0 else []

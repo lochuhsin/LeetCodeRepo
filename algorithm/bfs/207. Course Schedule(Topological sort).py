@@ -31,7 +31,16 @@ after reaches 1 we remove one and goes to 2 and 3 (bfs or dfs whatever)
 since the edge 1 -> 2, 1 -> 3 have been walked, we remove the edges.
 (In this perticular problem, we don't actually remove the edges, we minus
 the indegree by 1.) now since the indegree of 2 and 3 is now zero. we add them
-into order, so on and so forth. ( current order -> [1, 2, 3] or [1, 3, 2])
+into order, so on and so forth. ( current order -> [1, 2, 3] or [1, 3, 2]).
+
+One might asked that, what if the pathes of two nodes walk through multiple times.
+for example how to make sure that 1 -> 2 have walked only once ?
+Since we don't have any thing like seen dictionary to store walk information.
+
+The point is if 1 -> 2 is able to walk more than 1 times. Than there must be a cycle
+, therefore for somehow that the while q: loop will terminate.(this is where i haven't
+figure out why)
+
 
 '''
 from collections import defaultdict, deque
@@ -64,5 +73,5 @@ class Solution(object):
 
                 if indegree[next_node] == 0:
                     q.append(next_node)
-
+        # print(course_list)
         return removededges == total_depth
