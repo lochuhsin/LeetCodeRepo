@@ -1,50 +1,36 @@
-class GNode(object):
-    """  data structure represent a vertex in the graph."""
-    def __init__(self):
-        self.inDegrees = 0
-        self.outNodes = []
+'''
+using kahn's algorithm. implemented by myself
+few detail's aren't quite sure yet
+'''
+from collections import defaultdict, deque
+
 
 class Solution(object):
-    def canFinish(self, numCourses, prerequisites):
-        """
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: bool
-        """
-        from collections import defaultdict, deque
-        # key: index of node; value: GNode
-        graph = defaultdict(GNode)
+    def canFinish(self, n, prerequisites):
+        # if curious of course order;
+        # course_list = []
 
-        totalDeps = 0
-        for relation in prerequisites:
-            nextCourse, prevCourse = relation[0], relation[1]
-            graph[prevCourse].outNodes.append(nextCourse)
-            graph[nextCourse].inDegrees += 1
-            totalDeps += 1
+        graph_dic = defaultdict(list)
+        indegree = [0 for i in range(n)]
 
-        # we start from courses that have no prerequisites.
-        # we could use either set, stack or queue to keep track of courses with no dependence.
-        nodepCourses = deque()
-        for index, node in graph.items():
-            if node.inDegrees == 0:
-                nodepCourses.append(index)
+        total_depth = 0
+        for course, precourse in prerequisites:
+            indegree[course] += 1
+            graph_dic[precourse].append(course)
+            total_depth += 1
 
-        removedEdges = 0
-        while nodepCourses:
-            # pop out course without dependency
-            course = nodepCourses.pop()
+        q = deque([i for i in range(n) if indegree[i] == 0])
 
-            # remove its outgoing edges one by one
-            for nextCourse in graph[course].outNodes:
-                graph[nextCourse].inDegrees -= 1
-                removedEdges += 1
-                # while removing edges, we might discover new courses with prerequisites removed, i.e. new courses without prerequisites.
-                if graph[nextCourse].inDegrees == 0:
-                    nodepCourses.append(nextCourse)
+        removededges = 0
+        while q:
+            node = q.popleft()
+            # course_list.append(node)
 
-        if removedEdges == totalDeps:
-            return True
-        else:
-            # if there are still some edges left, then there exist some cycles
-            # Due to the dead-lock (dependencies), we cannot remove the cyclic edges
-            return False
+            for next_node in graph_dic[node]:
+                indegree[next_node] -= 1
+                removededges += 1
+
+                if indegree[next_node] == 0:
+                    q.append(next_node)
+
+        return removededges == total_depth
