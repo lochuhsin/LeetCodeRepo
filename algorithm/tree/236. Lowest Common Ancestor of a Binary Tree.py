@@ -5,7 +5,7 @@ In order to find the least common ancestor (LCA)
 loop every node in the tree, when root == p or root == q
 return root (means we found the node)
 
-Now ether left recursion or right recursion starts to return value
+Now either left recursion or right recursion starts to return value
 (since the node is found)
 
 when in certain level of function stack that left return and right return
