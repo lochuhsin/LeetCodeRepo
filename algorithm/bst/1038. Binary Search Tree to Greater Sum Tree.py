@@ -41,6 +41,7 @@ One pass right traversal solution
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
     def bstToGst(self, root: TreeNode) -> TreeNode:
         
@@ -52,10 +53,7 @@ class Solution:
             if not node: return None
             
             right_inorder(node.right)
-
-            val += node.val
-            node.val = val
-            
+            node.val = val = node.val+val
             right_inorder(node.left)
             
         right_inorder(root)
