@@ -1,3 +1,10 @@
+'''
+Intuitive:
+1. Traverse the bst by inorder to an arr
+2. rebuild binary tree by finding mid point in arr
+'''
+
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -24,6 +31,4 @@ class Solution:
             return root
         in_order_traverse(root)
         return build_balanced_tree(0, len(nodes)-1)
-            
-            
-            
+
